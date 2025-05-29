@@ -1,0 +1,20 @@
+services:
+  db:
+    extends:
+      file: ./postgres.yaml
+      service: db
+    volumes:
+      - pgdata:/var/lib/postgresql/data 
+
+  adminer:
+    extends:
+      file: ./postgres.yaml
+      service: adminer
+
+  redis:
+    extends:
+      file: ./redis.yaml
+      service: redis
+
+volumes:
+  pgdata:
