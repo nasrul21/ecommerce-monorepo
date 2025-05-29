@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: dummypassword
     ports:
-      - 5432:5432
+      - 0.0.0.0:5432:5432
 
   adminer:
     image: adminer
