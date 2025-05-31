@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option go_package = "./proto/userpb";
+
+message RegisterUserRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+  string confirm_password = 4;
+}
+
+message RegisterUserResponse {
+  bool ok = 1;
+}

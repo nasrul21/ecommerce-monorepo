@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option go_package = "./proto/userpb";
+
+import 'user.proto';
+
+service UserService {
+  rpc Register (RegisterUserRequest) returns (RegisterUserResponse);
+}
