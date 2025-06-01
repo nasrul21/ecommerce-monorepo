@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"logger"
 	"net"
 	"user-service/config"
 	"user-service/db"
@@ -17,6 +18,9 @@ import (
 
 //go:generate protoc --go_out=. --go-grpc_out=. -I=../../packages/protos/user ../../packages/protos/user/user_payload.proto
 func main() {
+	logger.InitLogger()
+	defer logger.L().Sync()
+
 	cfg := config.LoadConfig()
 
 	postgres := db.NewPostgres(cfg)

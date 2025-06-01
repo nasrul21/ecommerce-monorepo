@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"logger"
 	"user-service/config"
 	"user-service/model"
 	"user-service/proto/userpb"
@@ -40,6 +41,11 @@ func (s *UserServiceImpl) RegisterUser(ctx context.Context, req *userpb.Register
 
 	hashedPassword, err := util.HashPassword(req.GetPassword())
 	if err != nil {
+		logger.L().Error("[UserService][RegisterUser] failed to hash password",
+			zap.Error(err),
+			zap.String("email", req.GetEmail()),
+		)
+		err = errors.New("internal server error")
 		return
 	}
 
@@ -51,6 +57,10 @@ func (s *UserServiceImpl) RegisterUser(ctx context.Context, req *userpb.Register
 
 	err = s.userRepo.CreateUser(ctx, user)
 	if err != nil {
+		logger.L().Error("[UserService][RegisterUser] failed to create user",
+			zap.Error(err),
+			zap.String("email", req.GetEmail()),
+		)
 		err = errors.New("failed to create user")
 		return
 	}
@@ -63,11 +73,17 @@ func (s *UserServiceImpl) RegisterUser(ctx context.Context, req *userpb.Register
 
 func (s *UserServiceImpl) LoginUser(ctx context.Context, req *userpb.LoginUserRequest) (res *userpb.LoginUserResponse, err error) {
 	user, err := s.userRepo.GetUserByEmail(ctx, req.GetEmail())
-	if err != nil && err != sql.ErrNoRows {
-		zap.L().Error("[UserRepository][LoginUser] failed to retreive user data",
+	if err == sql.ErrNoRows {
+		err = errors.New("user not found")
+		return
+	}
+
+	if err != nil {
+		logger.L().Error("[UserRepository][LoginUser] failed to retreive user data",
 			zap.Error(err),
 			zap.Any("user.email", req.GetEmail()),
 		)
+		err = errors.New("failed to retreive user data")
 		return
 	}
 
@@ -84,7 +100,7 @@ func (s *UserServiceImpl) LoginUser(ctx context.Context, req *userpb.LoginUserRe
 		s.cfg.Auth.Token.Secret,
 	)
 	if err != nil {
-		zap.L().Error("[UserService][LoginUser] failed generate token",
+		logger.L().Error("[UserService][LoginUser] failed generate token",
 			zap.Error(err),
 			zap.String("user.id", user.ID.String()),
 		)

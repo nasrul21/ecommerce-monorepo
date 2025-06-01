@@ -2,7 +2,7 @@ package repository
 
 import (
 	"context"
-	"fmt"
+	"logger"
 	"user-service/config"
 	"user-service/model"
 
@@ -31,13 +31,13 @@ func (r *UserRepositoryImpl) GetUserByEmail(ctx context.Context, email string) (
 	query := userQuery.selectUser + " WHERE email = $1"
 	err = r.DB.GetContext(ctx, &user, query, email)
 	if err != nil {
-		zap.L().Error("[UserRepository][GetUserByEmail]",
+		logger.L().Error("[UserRepository][GetUserByEmail]",
 			zap.Error(err),
 			zap.String("email", email),
 		)
 		return
 	}
-	fmt.Println(user)
+
 	return user, err
 }
 
