@@ -25,19 +25,24 @@ var File_user_service_proto protoreflect.FileDescriptor
 const file_user_service_proto_rawDesc = "" +
 	"\n" +
 	"\x12user_service.proto\x1a\n" +
-	"user.proto2F\n" +
+	"user.proto2v\n" +
 	"\vUserService\x127\n" +
-	"\bRegister\x12\x14.RegisterUserRequest\x1a\x15.RegisterUserResponseB\x10Z\x0e./proto/userpbb\x06proto3"
+	"\bRegister\x12\x14.RegisterUserRequest\x1a\x15.RegisterUserResponse\x12.\n" +
+	"\x05Login\x12\x11.LoginUserRequest\x1a\x12.LoginUserResponseB\x10Z\x0e./proto/userpbb\x06proto3"
 
 var file_user_service_proto_goTypes = []any{
 	(*RegisterUserRequest)(nil),  // 0: RegisterUserRequest
-	(*RegisterUserResponse)(nil), // 1: RegisterUserResponse
+	(*LoginUserRequest)(nil),     // 1: LoginUserRequest
+	(*RegisterUserResponse)(nil), // 2: RegisterUserResponse
+	(*LoginUserResponse)(nil),    // 3: LoginUserResponse
 }
 var file_user_service_proto_depIdxs = []int32{
 	0, // 0: UserService.Register:input_type -> RegisterUserRequest
-	1, // 1: UserService.Register:output_type -> RegisterUserResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	1, // 1: UserService.Login:input_type -> LoginUserRequest
+	2, // 2: UserService.Register:output_type -> RegisterUserResponse
+	3, // 3: UserService.Login:output_type -> LoginUserResponse
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name

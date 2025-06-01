@@ -5,6 +5,7 @@ go 1.24.3
 require (
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
+	github.com/golang-jwt/jwt/v5 v5.2.2 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/jmoiron/sqlx v1.4.0 // indirect
 	github.com/lib/pq v1.10.9 // indirect

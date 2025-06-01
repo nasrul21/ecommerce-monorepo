@@ -2,6 +2,7 @@ package config
 
 import (
 	"log"
+	"time"
 
 	"github.com/spf13/viper"
 )
@@ -18,6 +19,12 @@ type Config struct {
 		Name     string `mapstructure:"NAME"`
 		SSLMode  string `mapstructure:"SSL_MODE"`
 	} `mapstructure:"DB"`
+	Auth struct {
+		Token struct {
+			Expired time.Duration `mapstructure:"EXPIRED"`
+			Secret  string        `mapstructure:"SECRET"`
+		} `mapstructure:"TOKEN"`
+	} `mapstructure:"AUTH"`
 }
 
 func LoadConfig() *Config {

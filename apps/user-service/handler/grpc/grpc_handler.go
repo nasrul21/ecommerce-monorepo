@@ -25,3 +25,12 @@ func (h *userHandler) Register(ctx context.Context, req *userpb.RegisterUserRequ
 
 	return res, nil
 }
+
+func (h *userHandler) Login(ctx context.Context, req *userpb.LoginUserRequest) (*userpb.LoginUserResponse, error) {
+	res, err := h.svc.LoginUser(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}

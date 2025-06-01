@@ -6,4 +6,5 @@ import 'user.proto';
 
 service UserService {
   rpc Register (RegisterUserRequest) returns (RegisterUserResponse);
+  rpc Login (LoginUserRequest) returns (LoginUserResponse);
 }

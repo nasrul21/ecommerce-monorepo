@@ -12,3 +12,12 @@ message RegisterUserRequest {
 message RegisterUserResponse {
   bool ok = 1;
 }
+
+message LoginUserRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginUserResponse {
+  string token = 1;
+}
